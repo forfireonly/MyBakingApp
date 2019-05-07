@@ -1,17 +1,16 @@
 package com.example.mybakingapp;
 
+import android.content.Context;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,36 +19,31 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class ListOfItemsFragment extends Fragment {
 
     String resultString;
     ArrayList<String> bakingItemsName;
-    JSONArray bakingItemsNamesJson;
-
     RecyclerView BakingItems;
-
     BakingItemsAdapter Adapter;
-
     String nameBakingItem;
+    View rootView;
+
+    public ListOfItemsFragment(){};
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
+                             Bundle savedInstanceState){
 
 
-        // Begin the transaction
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-        ft.replace(R.id.master_list_fragment, new ListOfItemsFragment());
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-        ft.commit();
+        bakingItemsName = new ArrayList<>();
 
-        /*bakingItemsName = new ArrayList<>();
+        // rootView = inflater.inflate(R.layout.lits_of_items_fragment, parent, false);
 
-        BakingItems = (RecyclerView) findViewById(R.id.recycler_view);
+        View rootView=LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.lits_of_items_fragment, parent, false);
+
+        RecyclerView BakingItems = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         int spanCount = getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
@@ -95,28 +89,17 @@ public class MainActivity extends AppCompatActivity {
             bakingItemsName.add(nameBakingItem);
         }
 
+
+
         Adapter = new BakingItemsAdapter(bakingItemsName);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, spanCount);
-
-
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), spanCount);
+       // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
         BakingItems.setLayoutManager(mLayoutManager);
-        BakingItems.setAdapter(Adapter); */
+        BakingItems.setAdapter(Adapter);
 
-    }
+        return rootView;
+                //inflater.inflate(R.layout.lits_of_items_fragment, parent, false);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

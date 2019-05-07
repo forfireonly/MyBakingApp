@@ -36,7 +36,18 @@ public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.
 
     @Override
     public int getItemCount() {
-        return listOfItems.size();
+        int a ;
+
+        if(listOfItems != null && !listOfItems.isEmpty()) {
+
+            a = listOfItems.size();
+        }
+        else {
+
+            a = 0;
+
+        }
+        return a;
     }
 
 
