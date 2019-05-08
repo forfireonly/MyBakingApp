@@ -22,10 +22,11 @@ import java.util.concurrent.ExecutionException;
 public class ListOfItemsFragment extends Fragment {
 
     String resultString;
-    ArrayList<String> bakingItemsName;
+    ArrayList<NameServing> bakingItemsName;
     RecyclerView BakingItems;
     BakingItemsAdapter Adapter;
     String nameBakingItem;
+    String servings;
     View rootView;
 
     public ListOfItemsFragment(){};
@@ -81,12 +82,14 @@ public class ListOfItemsFragment extends Fragment {
             }
             try {
                 nameBakingItem = jsonobject.getString("name");
+                servings = jsonobject.getString("servings");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             //String url = jsonobject.getString("url");
             Log.v("baking item", nameBakingItem);
-            bakingItemsName.add(nameBakingItem);
+            NameServing item = new NameServing(nameBakingItem, servings);
+            bakingItemsName.add(item);
         }
 
 

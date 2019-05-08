@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.BakingItemHolder> {
 
-    private List<String> listOfItems;
+    private List<NameServing> listOfItems;
 
-    public BakingItemsAdapter(List<String> listOfItems) {
+    public BakingItemsAdapter(ArrayList<NameServing> listOfItems) {
         this.listOfItems = listOfItems;
     }
     @NonNull
@@ -28,9 +29,11 @@ public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.
     @Override
     public void onBindViewHolder(@NonNull BakingItemHolder holder, int i) {
        String name;
-       name = listOfItems.get(i);
-
+       String serving;
+       name = listOfItems.get(i).getName();
+       serving = listOfItems.get(i).getServing();
         holder.itemName.setText(name);
+        holder.servings.setText("Servings: "+serving);
 
     }
 
@@ -55,10 +58,11 @@ public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.
 
         ImageView frame;
         TextView itemName;
+        TextView servings;
         public BakingItemHolder(@NonNull View itemView) {
             super(itemView);
 
-
+            servings = (TextView) itemView.findViewById(R.id.servings);
             itemName = (TextView) itemView.findViewById(R.id.name_of_item);
         }
     }
