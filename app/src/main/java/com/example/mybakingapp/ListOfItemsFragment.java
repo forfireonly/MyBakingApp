@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,8 +94,15 @@ public class ListOfItemsFragment extends Fragment {
         }
 
 
+        BakingItemsAdapter.RecyclerViewClickListener listener = new BakingItemsAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
 
-        Adapter = new BakingItemsAdapter(bakingItemsName);
+                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        Adapter = new BakingItemsAdapter(bakingItemsName, listener);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), spanCount);
        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
