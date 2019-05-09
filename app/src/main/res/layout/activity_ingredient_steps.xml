@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".IngredientStepsActivity">
-    <TextView
-        android:id="@+id/place_holder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:text="Place holder"/>
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"/>
+
+    <FrameLayout
+        android:id="@+id/ingridients_list_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp">
+    </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cooking Steps"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"/>
+
+    <FrameLayout
+        android:id="@+id/ingridients_step_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

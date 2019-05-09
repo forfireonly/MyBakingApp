@@ -80,9 +80,9 @@ public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.
             mListener.onClick(v, getAdapterPosition());
 
             int position = getAdapterPosition();
-            Intent myIntent = new Intent(v.getContext(), IngredientStepsActivity.class);
-            myIntent.putExtra("STRING_I_NEED", String.valueOf(position));
-            v.getContext().startActivity(myIntent);
+           // Intent myIntent = new Intent(v.getContext(), IngredientStepsActivity.class);
+            //myIntent.putExtra("STRING_I_NEED", String.valueOf(position));
+            //v.getContext().startActivity(myIntent);
 
         }
     }

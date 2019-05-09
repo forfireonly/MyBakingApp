@@ -1,9 +1,11 @@
 package com.example.mybakingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListOfItemsFragment extends Fragment {
 
-    String resultString;
+    public static String resultString;
     ArrayList<NameServing> bakingItemsName;
     RecyclerView BakingItems;
     BakingItemsAdapter Adapter;
@@ -99,6 +101,9 @@ public class ListOfItemsFragment extends Fragment {
             public void onClick(View view, int position) {
 
                 Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(view.getContext(), IngredientStepsActivity.class);
+                myIntent.putExtra("STRING_I_NEED", position);
+                view.getContext().startActivity(myIntent);
             }
         };
 
@@ -107,6 +112,14 @@ public class ListOfItemsFragment extends Fragment {
        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
         BakingItems.setLayoutManager(mLayoutManager);
+
+        BakingItems.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
+
+
+        BakingItems.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.HORIZONTAL));
+
         BakingItems.setAdapter(Adapter);
 
         return rootView;
