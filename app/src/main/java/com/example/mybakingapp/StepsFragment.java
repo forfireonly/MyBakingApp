@@ -1,5 +1,6 @@
 package com.example.mybakingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -113,7 +115,18 @@ public class StepsFragment extends Fragment {
             Steps stepToBake = new Steps(idStep, shortDescription, description, videoURL, thumbnailURL);
             stepsToTake.add(stepToBake);}
 
-        mAdapter = new StepsAdapter(stepsToTake);
+        BakingItemsAdapter.RecyclerViewClickListener listener = new BakingItemsAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(view.getContext(), Details.class);
+                myIntent.putExtra("STRING_I_NEED", position);
+                view.getContext().startActivity(myIntent);
+            }
+        };
+
+        mAdapter = new StepsAdapter(stepsToTake, listener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
         stepsForBaking.addItemDecoration(new DividerItemDecoration(getContext(),

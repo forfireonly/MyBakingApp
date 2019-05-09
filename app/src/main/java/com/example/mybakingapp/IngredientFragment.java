@@ -36,9 +36,9 @@ public class IngredientFragment extends Fragment {
                              Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-             id = bundle.getInt("ID");
+             id = bundle.getInt("ID");}
             //Log.v("id",id);
-        }
+        //}
 
        /* if (id != null) {
             try {
@@ -49,7 +49,7 @@ public class IngredientFragment extends Fragment {
             }
         }*/
 
-        Log.v("id", String.valueOf(id));
+       // Log.v("id", String.valueOf(id));
 
         ingridientsToDisplay = new ArrayList<>();
 

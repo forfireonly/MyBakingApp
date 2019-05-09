@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+
 public class ListOfItemsFragment extends Fragment {
 
     public static String resultString;
@@ -31,6 +32,10 @@ public class ListOfItemsFragment extends Fragment {
     String nameBakingItem;
     String servings;
     View rootView;
+
+    public static Integer ID;
+
+
 
     public ListOfItemsFragment(){};
 
@@ -102,7 +107,8 @@ public class ListOfItemsFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(view.getContext(), IngredientStepsActivity.class);
-                myIntent.putExtra("STRING_I_NEED", position);
+                //myIntent.putExtra("STRING_I_NEED", position);
+                ID = position;
                 view.getContext().startActivity(myIntent);
             }
         };

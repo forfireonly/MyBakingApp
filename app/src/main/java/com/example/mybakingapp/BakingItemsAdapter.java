@@ -87,7 +87,7 @@ public class BakingItemsAdapter extends RecyclerView.Adapter<BakingItemsAdapter.
         }
     }
 
-    public interface RecyclerViewClickListener {
+    public interface RecyclerViewClickListener extends StepsAdapter.RecyclerViewClickListener {
 
         void onClick(View view, int position);
     }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import static com.example.mybakingapp.ListOfItemsFragment.ID;
+
 public class IngredientStepsActivity extends AppCompatActivity {
 TextView placeHolder;
     Integer newString;
@@ -15,16 +17,18 @@ TextView placeHolder;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_steps);
 
+        newString = ID;
 
-        if (savedInstanceState == null) {
+
+     /*   if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 newString= null;
             } else {
                 newString= extras.getInt("STRING_I_NEED");
             }
-    }
-        Log.v("String I need", String.valueOf(newString));
+    }*/
+      //  Log.v("String I need", String.valueOf(newString));
         IngredientFragment fragment= new IngredientFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("ID", newString);
