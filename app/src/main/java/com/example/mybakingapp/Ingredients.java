@@ -17,7 +17,7 @@ public class Ingredients {
         return quantity;
     }
 
-    public void setQuantity(String name) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -25,7 +25,7 @@ public class Ingredients {
         return measure;
     }
 
-    public void setMeasure(String serving) {
+    public void setMeasure(String measure) {
         this.measure = measure;
     }
 

@@ -37,4 +37,18 @@ TextView placeHolder;
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
         ft.commit();
+
+
+        StepsFragment fragment2= new StepsFragment();
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("ID", newString);
+        fragment2.setArguments(bundle2);
+
+        // Begin the transaction
+        FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+        ft2.replace(R.id.ingridients_step_fragment, fragment2);
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+        ft2.commit();
 }}

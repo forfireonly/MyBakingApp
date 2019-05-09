@@ -20,8 +20,6 @@ import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 public class IngredientFragment extends Fragment {
 
     Integer id;
-    Integer idInt;
-    ArrayList<String> Steps;
     String ingredientBeforeParsing;
 
     String quantity;
@@ -53,16 +51,12 @@ public class IngredientFragment extends Fragment {
 
         Log.v("id", String.valueOf(id));
 
-        Steps = new ArrayList<>();
         ingridientsToDisplay = new ArrayList<>();
 
         View rootView=LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lits_of_items_fragment, parent, false);
 
-        RecyclerView Steps = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         RecyclerView IngredientsForBaking = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
-        GetBakingItems gettingBakingItems = new GetBakingItems();
 
         JSONArray jsonarray= null;
         try {
