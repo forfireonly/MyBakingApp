@@ -9,6 +9,16 @@
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/baking_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place Holder"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,6 +43,15 @@
             android:textStyle="italic"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="(Click each step to see more)"
+            android:gravity="center"
+            android:textStyle="normal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18dp"/>
 
     <FrameLayout
         android:id="@+id/ingridients_step_fragment"
