@@ -120,8 +120,14 @@ public class StepsFragment extends Fragment {
             public void onClick(View view, int position) {
 
                 Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+
+                // Creating Bundle object
+                Bundle b = new Bundle();
+                b.putString("description", stepsToTake.get(position).getDescription());
+                b.putString("videoURL", stepsToTake.get(position).getVideoURL());
+                b.putString("thumbnailURL", stepsToTake.get(position).getThumbnailURL());
                 Intent myIntent = new Intent(view.getContext(), Details.class);
-                myIntent.putExtra("STRING_I_NEED", position);
+                myIntent.putExtras(b);
                 view.getContext().startActivity(myIntent);
             }
         };
