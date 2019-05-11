@@ -1,11 +1,13 @@
 package com.example.mybakingapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 
 public class StepsFragment extends Fragment {
 
@@ -30,6 +32,8 @@ public class StepsFragment extends Fragment {
     String description;
     String videoURL;
     String thumbnailURL;
+
+    String resultString;
 
     StepsAdapter mAdapter;
 
@@ -47,20 +51,34 @@ public class StepsFragment extends Fragment {
 
         stepsToTake = new ArrayList<>();
 
-        View rootView = LayoutInflater.from(parent.getContext())
+        View rootView1 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lits_of_items_fragment, parent, false);
 
-        RecyclerView stepsForBaking = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        RecyclerView stepsForBaking = (RecyclerView) rootView1.findViewById(R.id.recycler_view);
+        //stepsForBaking.setNestedScrollingEnabled(false);
 
-        JSONArray jsonarray = null;
+        int spanCount = getResources().getConfiguration().orientation ==
+                Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+
+        GetBakingItems gettingBakingItems = new GetBakingItems();
+
         try {
-            jsonarray = new JSONArray(resultString);
+            resultString = gettingBakingItems.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray jsonarray3 = null;
+        try {
+            jsonarray3 = new JSONArray(resultString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         JSONObject jsonobject = null;
         try {
-            jsonobject = jsonarray.getJSONObject(id);
+            jsonobject = jsonarray3.getJSONObject(id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,13 +88,15 @@ public class StepsFragment extends Fragment {
             e.printStackTrace();
         }
 
+
         JSONArray jsonarray2 = null;
         try {
             jsonarray2 = new JSONArray(stepsBeforeParsing);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < jsonarray.length(); i++) {
+        for (int i = 0; i < jsonarray2.length(); i++) {
+
             JSONObject jsonobject2 = null;
             try {
                 jsonobject2 = (JSONObject) jsonarray2.getJSONObject(i);
@@ -85,6 +105,7 @@ public class StepsFragment extends Fragment {
             }
             try {
                 idStep = jsonobject2.getString("id");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -113,7 +134,10 @@ public class StepsFragment extends Fragment {
 
 
             Steps stepToBake = new Steps(idStep, shortDescription, description, videoURL, thumbnailURL);
-            stepsToTake.add(stepToBake);}
+
+            stepsToTake.add(stepToBake);
+
+        }
 
         BakingItemsAdapter.RecyclerViewClickListener listener = new BakingItemsAdapter.RecyclerViewClickListener() {
             @Override
@@ -142,7 +166,7 @@ public class StepsFragment extends Fragment {
 
         stepsForBaking.setAdapter(mAdapter);
 
-            return rootView;
+            return rootView1;
 
 
         }

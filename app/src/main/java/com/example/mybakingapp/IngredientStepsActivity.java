@@ -1,7 +1,10 @@
 package com.example.mybakingapp;
 
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +14,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
-import static com.example.mybakingapp.ListOfItemsFragment.resultString;
+
 
 public class IngredientStepsActivity extends AppCompatActivity {
     TextView placeHolder;
     Integer newString;
     String nameBakingItem;
+    String resultString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_steps);
 
         newString = ID;
-        JSONArray jsonarray = null;
+
+        int spanCount = getResources().getConfiguration().orientation ==
+                Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+
+        GetBakingItems gettingBakingItems = new GetBakingItems();
+
+        try {
+            resultString = gettingBakingItems.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+      JSONArray jsonarray = null;
         try {
             jsonarray = new JSONArray(resultString);
         } catch (JSONException e) {
@@ -58,22 +78,22 @@ public class IngredientStepsActivity extends AppCompatActivity {
                 newString= extras.getInt("STRING_I_NEED");
             }
     }*/
-      //  Log.v("String I need", String.valueOf(newString));
-        IngredientFragment fragment= new IngredientFragment();
+        //  Log.v("String I need", String.valueOf(newString));
+       IngredientFragment fragment1 = new IngredientFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("ID", newString);
-        fragment.setArguments(bundle);
+        fragment1.setArguments(bundle);
 
         // Begin the transaction
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 // Replace the contents of the container with the new fragment
-        ft.replace(R.id.ingridients_list_fragment, fragment);
+        ft.replace(R.id.recycler_view_steps, fragment1);
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
         ft.commit();
 
 
-        StepsFragment fragment2= new StepsFragment();
+       StepsFragment fragment2= new StepsFragment();
         Bundle bundle2 = new Bundle();
         bundle2.putInt("ID", newString);
         fragment2.setArguments(bundle2);
@@ -85,6 +105,6 @@ public class IngredientStepsActivity extends AppCompatActivity {
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
         ft2.commit();
-}
+    }
 
 }

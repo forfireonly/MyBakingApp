@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+
+ <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    >
 
     <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/baking_item_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Place Holder"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:textSize="22dp" />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Ingredients"
             android:gravity="center"
             android:textStyle="italic"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"/>
 
-    <FrameLayout
-        android:id="@+id/ingridients_list_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp">
-    </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/recycler_view_steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -53,12 +55,12 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18dp"/>
 
-    <FrameLayout
-        android:id="@+id/ingridients_step_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
-
-
+        <FrameLayout
+            android:id="@+id/ingridients_step_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
+
+

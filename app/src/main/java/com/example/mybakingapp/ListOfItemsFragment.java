@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListOfItemsFragment extends Fragment {
 
-    public static String resultString;
+    String resultString;
     ArrayList<NameServing> bakingItemsName;
     RecyclerView BakingItems;
     BakingItemsAdapter Adapter;
@@ -42,7 +42,8 @@ public class ListOfItemsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
+
 
 
         bakingItemsName = new ArrayList<>();
@@ -106,10 +107,11 @@ public class ListOfItemsFragment extends Fragment {
             public void onClick(View view, int position) {
 
                 Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(view.getContext(), IngredientStepsActivity.class);
+                Intent myIntent = new Intent(getContext(), IngredientStepsActivity.class);
                 //myIntent.putExtra("STRING_I_NEED", position);
+
                 ID = position;
-                view.getContext().startActivity(myIntent);
+                startActivity(myIntent);
             }
         };
 

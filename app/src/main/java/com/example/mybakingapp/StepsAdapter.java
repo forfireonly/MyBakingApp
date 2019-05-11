@@ -3,6 +3,7 @@ package com.example.mybakingapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,13 +55,16 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.CustomViewHo
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         Steps step = steps.get(position);
-        holder.numberStep.setText("STEP " + (Integer.parseInt(step.getNumber())+1));
+        if (position!=0)
+        {   String correctStep = "STEP " + step.getNumber();
+            holder.numberStep.setText(correctStep);}
         holder.stepDescriptionShort.setText(step.getShortDescription());
 
     }
 
     @Override
     public int getItemCount() {
+        Log.v("Size of steps", String.valueOf(steps.size()));
         return steps.size();
     }
 
