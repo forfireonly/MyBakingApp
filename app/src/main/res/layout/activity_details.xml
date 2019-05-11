@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:clickable="true"
-    android:background="?android:attr/selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Details"
     >
 
     <!--Give this TextView an id-->
@@ -14,29 +15,21 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="26sp"
+        android:textSize="16sp"
         android:textStyle="italic"
         android:text="Place Holder"
         android:textColor="@color/colorPrimary"
-        android:gravity="center"/>
+        android:paddingLeft="16dp"/>
 
-    <TextView
-        android:id="@+id/video_URL"
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/exoplayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="Place Holder 2"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center_horizontal"/>
+        />
 
-    <TextView
-        android:id="@+id/thumbnail_URL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="Place Holder 3"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center_horizontal"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

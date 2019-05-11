@@ -56,10 +56,6 @@ public class IngredientStepsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        placeHolder = (TextView) findViewById(R.id.baking_item_name);
-            placeHolder.setText(nameBakingItem);
-
             setTitle(nameBakingItem);
 
 

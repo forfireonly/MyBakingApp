@@ -1,9 +1,32 @@
 package com.example.mybakingapp;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.VideoView;
+
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,11 +39,17 @@ public class Details extends AppCompatActivity {
     String definitions, videoURL, thumbnailURL, nameBakingItem;
     TextView definitionTextView, videoURLTextView, thumbnailURLTextView;
 
+    SimpleExoPlayerView playerView;
+    ExoPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+
+        playerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+        // = (VideoView) findViewById(R.id.exoplayer);
         // get the Intent that started this Activity
         Intent in = getIntent();
 
@@ -54,14 +83,44 @@ public class Details extends AppCompatActivity {
         setTitle(nameBakingItem + " - Cooking Steps");
 
         definitionTextView = (TextView)findViewById(R.id.description);
-        videoURLTextView = (TextView) findViewById(R.id.video_URL);
-        thumbnailURLTextView = (TextView) findViewById(R.id.thumbnail_URL);
-
-        definitionTextView.setText(definitions);
-        videoURLTextView.setText(videoURL);
-        thumbnailURLTextView.setText(thumbnailURL);
 
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initializePlayer();
+    }
+
+    private void initializePlayer(){
+        // Create a default TrackSelector
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelection.Factory videoTrackSelectionFactory =
+                new AdaptiveTrackSelection.Factory(bandwidthMeter);
+        TrackSelector trackSelector =
+                new DefaultTrackSelector(videoTrackSelectionFactory);
+
+        //Initialize the player
+        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+
+        //Initialize simpleExoPlayerView
+        SimpleExoPlayerView simpleExoPlayerView = findViewById(R.id.exoplayer);
+        simpleExoPlayerView.setPlayer(player);
+
+        // Produces DataSource instances through which media data is loaded.
+        DataSource.Factory dataSourceFactory =
+                new DefaultDataSourceFactory(this, Util.getUserAgent(this, "CloudinaryExoplayer"));
+
+        // Produces Extractor instances for parsing the media data.
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+        // This is the MediaSource representing the media to be played.
+        Uri videoUri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+        MediaSource videoSource = new ExtractorMediaSource(videoUri,
+                dataSourceFactory, extractorsFactory, null, null);
+
+        // Prepare the player with the source.
+        player.prepare(videoSource);
 
     }
 }
