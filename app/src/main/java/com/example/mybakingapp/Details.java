@@ -5,8 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.mybakingapp.ListOfItemsFragment.ID;
+import static com.example.mybakingapp.ListOfItemsFragment.resultString;
+
 public class Details extends AppCompatActivity {
-    String definitions, videoURL, thumbnailURL;
+    String definitions, videoURL, thumbnailURL, nameBakingItem;
     TextView definitionTextView, videoURLTextView, thumbnailURLTextView;
 
     @Override
@@ -24,6 +31,27 @@ public class Details extends AppCompatActivity {
         definitions = b.getString("description");
         videoURL = b.getString("videoURL");
         thumbnailURL = b.getString("thumbnailURL");
+
+        JSONArray jsonarray = null;
+        try {
+            jsonarray = new JSONArray(resultString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonobject = null;
+        try {
+            jsonobject = jsonarray.getJSONObject(ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+           nameBakingItem = jsonobject.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        setTitle(nameBakingItem + " - Cooking Steps");
 
         definitionTextView = (TextView)findViewById(R.id.description);
         videoURLTextView = (TextView) findViewById(R.id.video_URL);

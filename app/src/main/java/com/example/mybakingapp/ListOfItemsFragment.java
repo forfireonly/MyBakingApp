@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListOfItemsFragment extends Fragment {
 
-    String resultString;
+    public static String resultString;
     ArrayList<NameServing> bakingItemsName;
     RecyclerView BakingItems;
     BakingItemsAdapter Adapter;

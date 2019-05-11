@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.Inflater;
 
+import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 
 
 public class IngredientFragment extends Fragment {
@@ -29,7 +30,7 @@ public class IngredientFragment extends Fragment {
     String quantity;
     String measure;
     String ingredient;
-    String resultString;
+
 
     IngredientAdapter mAdapter;
     ArrayList <Ingredients> ingridientsToDisplay;
@@ -68,15 +69,7 @@ public class IngredientFragment extends Fragment {
 
 
 
-        GetBakingItems gettingBakingItems = new GetBakingItems();
 
-        try {
-            resultString = gettingBakingItems.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         JSONArray jsonarray3= null;
         try {

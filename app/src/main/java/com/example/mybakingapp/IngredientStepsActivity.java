@@ -17,13 +17,14 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
+import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 
 
 public class IngredientStepsActivity extends AppCompatActivity {
     TextView placeHolder;
     Integer newString;
     String nameBakingItem;
-    String resultString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +33,9 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
         newString = ID;
 
-        int spanCount = getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
 
-        GetBakingItems gettingBakingItems = new GetBakingItems();
 
-        try {
-            resultString = gettingBakingItems.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
       JSONArray jsonarray = null;
         try {
             jsonarray = new JSONArray(resultString);
@@ -67,6 +59,8 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
         placeHolder = (TextView) findViewById(R.id.baking_item_name);
             placeHolder.setText(nameBakingItem);
+
+            setTitle(nameBakingItem);
 
 
 
