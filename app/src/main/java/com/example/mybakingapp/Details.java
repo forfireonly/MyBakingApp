@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -59,6 +60,7 @@ public class Details extends AppCompatActivity {
         // getting data from bundle
         definitions = b.getString("description");
         videoURL = b.getString("videoURL");
+        Log.v("URL", videoURL);
         thumbnailURL = b.getString("thumbnailURL");
 
         JSONArray jsonarray = null;
@@ -83,16 +85,18 @@ public class Details extends AppCompatActivity {
         setTitle(nameBakingItem + " - Cooking Steps");
 
         definitionTextView = (TextView)findViewById(R.id.description);
+        definitionTextView.setText(definitions);
 
 
     }
     @Override
     protected void onStart() {
         super.onStart();
-        initializePlayer();
+        if (!videoURL.isEmpty()){
+        initializePlayer(videoURL);}
     }
 
-    private void initializePlayer(){
+    private void initializePlayer(String videoURL){
         // Create a default TrackSelector
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory =
@@ -115,12 +119,21 @@ public class Details extends AppCompatActivity {
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
         // This is the MediaSource representing the media to be played.
-        Uri videoUri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4");
+        Uri videoUri = Uri.parse(videoURL);
         MediaSource videoSource = new ExtractorMediaSource(videoUri,
                 dataSourceFactory, extractorsFactory, null, null);
 
         // Prepare the player with the source.
         player.prepare(videoSource);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (player!=null) {
+            player.release();
+            player = null;
+        }
     }
 }
