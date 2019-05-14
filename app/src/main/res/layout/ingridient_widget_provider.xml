@@ -14,7 +14,7 @@
         android:background="@color/colorPrimary"
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textStyle="bold|italic" />
 
 </LinearLayout>

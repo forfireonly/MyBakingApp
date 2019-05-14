@@ -42,7 +42,7 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
         widgetButton =(Button) findViewById(R.id.widget_button);
         newString = ID;
-        isClicked = true;
+        isClicked = false;
 
         widgetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +55,12 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
             }
         });
+
+        if (!isClicked){
+            Intent intent = new Intent(IngredientStepsActivity.this, IngridientWidgetProvider.class);
+            intent.putExtra("extra_value", "Add ingridients to Widget");
+            getApplication().sendBroadcast(intent);
+        }
 
       JSONArray jsonarray = null;
         try {

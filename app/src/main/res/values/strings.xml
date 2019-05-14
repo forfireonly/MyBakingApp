@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Baking App</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">Add baking ingridients</string>
     <string name="add_widget">Add widget</string>
 
-    <string name="list_ingridients">List of ingridients for %1$sbaking</string>
+
 </resources>

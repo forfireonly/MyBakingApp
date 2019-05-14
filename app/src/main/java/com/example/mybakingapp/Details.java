@@ -47,10 +47,14 @@ public class Details extends AppCompatActivity {
     SimpleExoPlayerView playerView;
     ExoPlayer player;
 
+    boolean landscapeMode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+
 
 
         playerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
@@ -90,8 +94,19 @@ public class Details extends AppCompatActivity {
         }
         setTitle(nameBakingItem + " - Cooking Steps");
 
+        // Determine if we are in landscape mode
+        if(findViewById(R.id.description) == null) {
+
+            landscapeMode = true;
+            if(getSupportActionBar()!=null) {
+                getSupportActionBar().hide();
+            }
+
+        }
+        else {
+
         definitionTextView = (TextView)findViewById(R.id.description);
-        definitionTextView.setText(definitions);
+        definitionTextView.setText(definitions);}
 
 
     }
