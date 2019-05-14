@@ -1,5 +1,6 @@
 package com.example.mybakingapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -16,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import static com.example.mybakingapp.IngredientFragment.ingredientsWidget;
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
 import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 
@@ -25,16 +29,32 @@ public class IngredientStepsActivity extends AppCompatActivity {
     Integer newString;
     String nameBakingItem;
 
+    Button widgetButton;
+
+    Boolean isClicked;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_steps);
 
+        widgetButton =(Button) findViewById(R.id.widget_button);
         newString = ID;
+        isClicked = true;
 
+        widgetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isClicked = true;
+                Log.v("is clicked", "true");
+                Intent intent = new Intent(IngredientStepsActivity.this, IngridientWidgetProvider.class);
+                intent.putExtra("extra_value", ingredientsWidget);
+                getApplication().sendBroadcast(intent);
 
-
+            }
+        });
 
       JSONArray jsonarray = null;
         try {
@@ -72,6 +92,8 @@ public class IngredientStepsActivity extends AppCompatActivity {
        IngredientFragment fragment1 = new IngredientFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("ID", newString);
+        bundle.putString("name", nameBakingItem);
+        bundle.putBoolean("clicked", isClicked);
         fragment1.setArguments(bundle);
 
         // Begin the transaction

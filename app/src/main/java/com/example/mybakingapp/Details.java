@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -40,6 +42,8 @@ public class Details extends AppCompatActivity {
     String definitions, videoURL, thumbnailURL, nameBakingItem;
     TextView definitionTextView, videoURLTextView, thumbnailURLTextView;
 
+    ImageView noVideo;
+
     SimpleExoPlayerView playerView;
     ExoPlayer player;
 
@@ -50,6 +54,8 @@ public class Details extends AppCompatActivity {
 
 
         playerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
+
+        noVideo = (ImageView) findViewById(R.id.no_video);
         // = (VideoView) findViewById(R.id.exoplayer);
         // get the Intent that started this Activity
         Intent in = getIntent();
@@ -94,6 +100,10 @@ public class Details extends AppCompatActivity {
         super.onStart();
         if (!videoURL.isEmpty()){
         initializePlayer(videoURL);}
+        else {
+            playerView.setVisibility(View.GONE);
+            noVideo.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initializePlayer(String videoURL){

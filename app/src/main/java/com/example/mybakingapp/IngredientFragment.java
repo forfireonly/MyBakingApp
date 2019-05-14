@@ -1,5 +1,6 @@
 package com.example.mybakingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ScrollingView;
@@ -22,7 +23,10 @@ import java.util.zip.Inflater;
 import static com.example.mybakingapp.ListOfItemsFragment.resultString;
 
 
+
 public class IngredientFragment extends Fragment {
+
+    public static String anna;
 
     Integer id;
     String ingredientBeforeParsing;
@@ -35,14 +39,24 @@ public class IngredientFragment extends Fragment {
     IngredientAdapter mAdapter;
     ArrayList <Ingredients> ingridientsToDisplay;
 
+    public static String ingredientsWidget;
 
+    String ingredientsForWidget;
+    String name;
+    Boolean buttonClicked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-             id = bundle.getInt("ID");}
+             id = bundle.getInt("ID");
+             name = bundle.getString("name");
+             buttonClicked = bundle.getBoolean("clicked");
+             Log.v("Clicked", "From ingridient fragment");
+        }
+
+        ingredientsForWidget= name;
             //Log.v("id",id);
         //}
 
@@ -123,8 +137,18 @@ public class IngredientFragment extends Fragment {
             Ingredients ingredientToDisplay = new Ingredients(quantity, measure, ingredient);
 
             ingridientsToDisplay.add(ingredientToDisplay);
+            ingredientsForWidget = ingredientsForWidget + "\n" +"   " + ingredient + " " + quantity + " " + measure ;
         }
 
+       // ingredientsWidget = ingredientsForWidget;
+
+        Log.v("string of ingridients", ingredientsForWidget);
+
+         ingredientsWidget = ingredientsForWidget;
+
+      /*  Intent intent = new Intent(getActivity(), IngridientWidgetProvider.class);
+        intent.putExtra("extra_value", ingredientsForWidget);
+        getActivity().sendBroadcast(intent); */
 
         mAdapter = new IngredientAdapter(ingridientsToDisplay);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());

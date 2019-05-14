@@ -19,9 +19,9 @@
             android:text="Ingredients"
             android:gravity="center"
             android:textStyle="italic"
+            android:paddingTop="16dp"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"/>
-
 
         <FrameLayout
             android:id="@+id/recycler_view_steps"
@@ -29,12 +29,27 @@
             android:layout_height="wrap_content">
         </FrameLayout>
 
+        <Button
+            android:id="@+id/widget_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:text="Ingredients Widget"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/heart_white"
+            />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cooking Steps"
             android:gravity="center"
             android:textStyle="italic"
+            android:paddingTop="16dp"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"/>
 

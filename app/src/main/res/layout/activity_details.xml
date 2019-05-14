@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Details"
     >
+
 
     <!--Give this TextView an id-->
     <TextView
@@ -19,13 +19,29 @@
         android:textStyle="italic"
         android:text="Place Holder"
         android:textColor="@color/colorPrimary"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/exoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/no_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:src="@drawable/no_video"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+
+
+
 
 
     <ImageView
