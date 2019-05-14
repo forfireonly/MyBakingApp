@@ -55,8 +55,8 @@ public class ListOfItemsFragment extends Fragment {
 
         RecyclerView BakingItems = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        int spanCount = getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
+       // int spanCount = getResources().getConfiguration().orientation ==
+       //         Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
 
         GetBakingItems gettingBakingItems = new GetBakingItems();
 
@@ -116,7 +116,7 @@ public class ListOfItemsFragment extends Fragment {
         };
 
         Adapter = new BakingItemsAdapter(bakingItemsName, listener);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), spanCount);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
         BakingItems.setLayoutManager(mLayoutManager);

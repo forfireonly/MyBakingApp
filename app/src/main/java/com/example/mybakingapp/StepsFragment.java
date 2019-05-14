@@ -35,7 +35,7 @@ public class StepsFragment extends Fragment {
     String videoURL;
     String thumbnailURL;
 
-
+public static Integer idTablet;
 
     StepsAdapter mAdapter;
 
@@ -49,6 +49,7 @@ public class StepsFragment extends Fragment {
         if (bundle != null) {
             id = bundle.getInt("ID");
             //Log.v("id",id);
+            idTablet = id;
         }
 
         stepsToTake = new ArrayList<>();

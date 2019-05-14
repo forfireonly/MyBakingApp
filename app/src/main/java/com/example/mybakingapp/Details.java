@@ -1,6 +1,7 @@
 package com.example.mybakingapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -24,6 +27,7 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -37,6 +41,7 @@ import org.json.JSONObject;
 
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
 import static com.example.mybakingapp.ListOfItemsFragment.resultString;
+import static com.example.mybakingapp.StepsFragment.idTablet;
 
 public class Details extends AppCompatActivity {
     String definitions, videoURL, thumbnailURL, nameBakingItem;
@@ -82,6 +87,9 @@ public class Details extends AppCompatActivity {
 
         JSONObject jsonobject = null;
         try {
+            if (ID == null){
+                ID=idTablet;
+            }
             jsonobject = jsonarray.getJSONObject(ID);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -132,8 +140,11 @@ public class Details extends AppCompatActivity {
         //Initialize the player
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
 
+
+
         //Initialize simpleExoPlayerView
         SimpleExoPlayerView simpleExoPlayerView = findViewById(R.id.exoplayer);
+
         simpleExoPlayerView.setPlayer(player);
 
         // Produces DataSource instances through which media data is loaded.
@@ -151,6 +162,7 @@ public class Details extends AppCompatActivity {
         // Prepare the player with the source.
         player.prepare(videoSource);
 
+
     }
 
     @Override
@@ -159,6 +171,25 @@ public class Details extends AppCompatActivity {
         if (player!=null) {
             player.release();
             player = null;
+        }
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checking the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //First Hide other objects (listview or recyclerview), better hide them using Gone.
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) playerView.getLayoutParams();
+            params.width=params.MATCH_PARENT;
+            params.height=params.MATCH_PARENT;
+            playerView.setLayoutParams(params);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            //unhide your objects here.
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
+            params.width=params.MATCH_PARENT;
+            params.height=600;
+            playerView.setLayoutParams(params);
         }
     }
 }
