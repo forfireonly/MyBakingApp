@@ -1,24 +1,22 @@
 package com.example.mybakingapp;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.media.MediaPlayer;
+import android.content.Context;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.SurfaceView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.RenderersFactory;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -27,7 +25,6 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -39,94 +36,80 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.view.View.VISIBLE;
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
 import static com.example.mybakingapp.ListOfItemsFragment.resultString;
-import static com.example.mybakingapp.StepsFragment.idTablet;
+import static com.example.mybakingapp.R.id.exoplayer;
+import static com.example.mybakingapp.R.id.parent;
+import static com.example.mybakingapp.StepsFragment.descriptionTablet;
 
-public class Details extends AppCompatActivity {
-    String definitions, videoURL, thumbnailURL, nameBakingItem;
-    TextView definitionTextView, videoURLTextView, thumbnailURLTextView;
+public class DetailTabletFragment extends Fragment {
+
+    SimpleExoPlayerView playerView;
 
     ImageView noVideo;
 
-    SimpleExoPlayerView playerView;
+    String definitions, videoURL;
+
+    TextView definitionTextView;
+
+    String stepsBeforeParsing;
+
+    String idStep;
+    String shortDescription;
+    String description;
+
     ExoPlayer player;
 
-    boolean landscapeMode;
+    String descriptionForTablet, urlForTablet;
 
+
+
+
+    // The onCreateView method is called when Fragment should create its View object hierarchy,
+    // either dynamically or via XML layout inflation.
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-
-
-
-        playerView = (SimpleExoPlayerView) findViewById(R.id.exoplayer);
-
-        noVideo = (ImageView) findViewById(R.id.no_video);
-        // = (VideoView) findViewById(R.id.exoplayer);
-        // get the Intent that started this Activity
-        Intent in = getIntent();
-
-        // get the Bundle that stores the data of this Activity
-        Bundle b = in.getExtras();
-
-        // getting data from bundle
-        definitions = b.getString("description");
-        videoURL = b.getString("videoURL");
-        Log.v("URL", videoURL);
-        thumbnailURL = b.getString("thumbnailURL");
-
-        JSONArray jsonarray = null;
-        try {
-            jsonarray = new JSONArray(resultString);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            descriptionForTablet = bundle.getString("Description");
+            urlForTablet = bundle.getString("URL");
+           // Log.v("DescrDetailTabletFrag", descriptionForTablet);
         }
 
-        JSONObject jsonobject = null;
-        try {
-            if (ID == null){
-                ID=idTablet;
-            }
-            jsonobject = jsonarray.getJSONObject(ID);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-           nameBakingItem = jsonobject.getString("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        setTitle(nameBakingItem + " - Cooking Steps");
-
-        // Determine if we are in landscape mode
-        if(findViewById(R.id.description) == null) {
-
-            landscapeMode = true;
-            if(getSupportActionBar()!=null) {
-                getSupportActionBar().hide();
-            }
-
-        }
-        else {
-
-        definitionTextView = (TextView)findViewById(R.id.description);
-        definitionTextView.setText(definitions);}
 
 
+        definitionTextView = (TextView) parent.findViewById(R.id.description);
+        playerView = (SimpleExoPlayerView) parent.findViewById(R.id.exoplayer);
+        noVideo = (ImageView) parent.findViewById(R.id.no_video);
+        //noVideo.setVisibility(View.VISIBLE);
+
+        View rootView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.activity_details, parent, false);
+
+
+
+        definitionTextView.setText(descriptionTablet);
+
+
+
+        return rootView;
     }
+
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        if (!videoURL.isEmpty()){
-        initializePlayer(videoURL);}
+        if (!urlForTablet.isEmpty()){
+            initializePlayer(urlForTablet);}
         else {
             playerView.setVisibility(View.GONE);
             noVideo.setVisibility(View.VISIBLE);
+          //  playerView.setDefaultArtwork();
+           // playerView.setUseArtwork(R.drawable.no_video);
+
         }
+
     }
 
     private void initializePlayer(String videoURL){
@@ -138,18 +121,18 @@ public class Details extends AppCompatActivity {
                 new DefaultTrackSelector(videoTrackSelectionFactory);
 
         //Initialize the player
-        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+        player = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
 
 
 
         //Initialize simpleExoPlayerView
-        SimpleExoPlayerView simpleExoPlayerView = findViewById(R.id.exoplayer);
+        SimpleExoPlayerView simpleExoPlayerView = playerView.findViewById(R.id.exoplayer);
 
         simpleExoPlayerView.setPlayer(player);
 
         // Produces DataSource instances through which media data is loaded.
         DataSource.Factory dataSourceFactory =
-                new DefaultDataSourceFactory(this, Util.getUserAgent(this, "CloudinaryExoplayer"));
+                new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "CloudinaryExoplayer"));
 
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
@@ -172,5 +155,12 @@ public class Details extends AppCompatActivity {
             player.release();
             player = null;
         }
+
+
     }
-}
+
+
+
+
+    }
+

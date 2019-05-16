@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         if (tabletSize) {
             // do something
 
+            layout = (FrameLayout) findViewById(R.id.master_list_fragment);
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 // Replace the contents of the container with the new fragment
@@ -84,74 +85,6 @@ public class MainActivity extends AppCompatActivity {
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
             ft.commit();
-
-            widgetButton =(Button) findViewById(R.id.widget_button);
-            newString = ID;
-            isClicked = false;
-            layout = (FrameLayout) findViewById(R.id.master_list_fragment);
-
-
-
-            widgetButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    isClicked = true;
-                    Log.v("is clicked", "true");
-                    Intent intent = new Intent(MainActivity.this, IngridientWidgetProvider.class);
-                    intent.putExtra("extra_value", ingredientsWidget);
-                    getApplication().sendBroadcast(intent);
-
-                }
-            });
-
-            if (!isClicked){
-                Intent intent = new Intent(MainActivity.this, IngridientWidgetProvider.class);
-                intent.putExtra("extra_value", "Add ingridients to Widget");
-                getApplication().sendBroadcast(intent);
-            }
-            GetBakingItems gettingBakingItems = new GetBakingItems();
-
-
-
-
-
-     /*   if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
-            } else {
-                newString= extras.getInt("STRING_I_NEED");
-            }
-    }*/
-            //  Log.v("String I need", String.valueOf(newString));
-            IngredientFragment fragment1 = new IngredientFragment();
-            Bundle bundle = new Bundle();
-           // bundle.putInt("ID", newString);
-           // bundle.putString("name", nameBakingItem);
-            bundle.putBoolean("clicked", isClicked);
-            fragment1.setArguments(bundle);
-
-            // Begin the transaction
-            FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-            ft4.replace(R.id.recycler_view_steps, fragment1);
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-            ft4.commit();
-
-
-            StepsFragment fragment2= new StepsFragment();
-            Bundle bundle2 = new Bundle();
-           // bundle2.putInt("ID", idTablet);
-            fragment2.setArguments(bundle2);
-
-            // Begin the transaction
-            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-            ft2.replace(R.id.ingridients_step_fragment, fragment2);
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-            ft2.commit();
 
 
 

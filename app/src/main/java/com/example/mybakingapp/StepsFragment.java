@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +37,12 @@ public class StepsFragment extends Fragment {
     String videoURL;
     String thumbnailURL;
 
+    boolean tabletSize;
+
 public static Integer idTablet;
+
+public static String descriptionTablet;
+public static String urlTablet;
 
     StepsAdapter mAdapter;
 
@@ -43,6 +50,8 @@ public static Integer idTablet;
     // either dynamically or via XML layout inflation.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+
+        tabletSize = getResources().getBoolean(R.bool.isTablet);
         // Defines the xml file for the fragment
 
         Bundle bundle = this.getArguments();
@@ -135,17 +144,40 @@ public static Integer idTablet;
             @Override
             public void onClick(View view, int position) {
 
+
+
                 Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
 
-                // Creating Bundle object
-                Bundle b = new Bundle();
+            if (tabletSize)  {
+                descriptionTablet=stepsToTake.get(position).getDescription();
+                urlTablet=stepsToTake.get(position).getVideoURL();
+                DetailTabletFragment detailTabletFragment = new DetailTabletFragment();
+
+                Bundle bundle3 = new Bundle();
+
+                Log.v("I am in the ", "IngredientStepsActivity");
+                bundle3.putString("Description", descriptionTablet);
+                if (urlTablet == null || urlTablet.isEmpty() ){
+                   bundle3.putString("URL", "https://www.youtube.com/watch?v=NpEaa2P7qZI");
+                }
+                else
+                bundle3.putString("URL", urlTablet);
+                detailTabletFragment.setArguments(bundle3);
+                FragmentTransaction ft3 = getActivity().getSupportFragmentManager().beginTransaction();
+                ft3.replace(R.id.tablet_second_panel, detailTabletFragment);
+                ft3.commit();
+            }// Creating Bundle object
+            else{    Bundle b = new Bundle();
+                urlTablet=stepsToTake.get(position).getVideoURL();
                 b.putString("description", stepsToTake.get(position).getDescription());
                 b.putString("videoURL", stepsToTake.get(position).getVideoURL());
                 b.putString("thumbnailURL", stepsToTake.get(position).getThumbnailURL());
                 Intent myIntent = new Intent(view.getContext(), Details.class);
                 myIntent.putExtras(b);
-                view.getContext().startActivity(myIntent);
-            }
+                view.getContext().startActivity(myIntent);}}
+
+
+
         };
 
         mAdapter = new StepsAdapter(stepsToTake, listener);

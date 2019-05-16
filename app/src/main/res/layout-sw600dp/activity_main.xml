@@ -1,97 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    tools:context=".MainActivity">
+    android:orientation="vertical" >
 
-    <!--
-    This layout is a two-pane layout for the master/detail flow.
-    -->
-
-    <!-- The static MasterListFragment -->
     <FrameLayout
         android:id="@+id/master_list_fragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     </FrameLayout>
-    <!-- A small divider -->
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/no_internet"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:fillViewport="true"
-        android:layout_weight="2"
-        >
+        android:src="@drawable/no_internet"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+</RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Ingredients"
-                android:gravity="center"
-                android:textStyle="italic"
-                android:paddingTop="16dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"/>
-
-            <FrameLayout
-                android:id="@+id/recycler_view_steps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </FrameLayout>
-
-            <Button
-                android:id="@+id/widget_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/colorPrimary"
-                android:text="Ingredients Widget"
-                android:textColor="#FFFFFF"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textSize="16dp"
-                android:drawableLeft="@drawable/heart_white"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cooking Steps"
-                android:gravity="center"
-                android:textStyle="italic"
-                android:paddingTop="16dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(Click each step to see more)"
-                android:gravity="center"
-                android:textStyle="normal"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18dp"/>
-
-            <FrameLayout
-                android:id="@+id/ingridients_step_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </FrameLayout>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-</LinearLayout>

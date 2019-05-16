@@ -29,6 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        app:default_artwork="@drawable/no_video"
+        app:use_artwork="true"
         />
 
     <ImageView
@@ -38,10 +40,6 @@
         android:src="@drawable/no_video"
         android:layout_gravity="center"
         android:visibility="invisible"/>
-
-
-
-
 
 
     <ImageView

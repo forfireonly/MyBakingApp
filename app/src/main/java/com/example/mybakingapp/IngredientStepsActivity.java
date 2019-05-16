@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 import static com.example.mybakingapp.IngredientFragment.ingredientsWidget;
 import static com.example.mybakingapp.ListOfItemsFragment.ID;
 import static com.example.mybakingapp.ListOfItemsFragment.resultString;
+import static com.example.mybakingapp.StepsFragment.descriptionTablet;
+import static com.example.mybakingapp.StepsFragment.urlTablet;
 
 
 public class IngredientStepsActivity extends AppCompatActivity {
@@ -33,12 +35,31 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
     Boolean isClicked;
 
-
+    boolean tabletSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_steps);
+
+        tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+
+
+          /*  DetailTabletFragment detailedTabletFragment = new DetailTabletFragment();
+            newString = ID;
+            Bundle args = new Bundle();
+            args.putString("ID", String.valueOf(newString));
+            detailedTabletFragment.setArguments(args);
+
+            //getFragmentManager().beginTransaction().add(R.id.tablet_second_panel, detailedTabletFragment).commit();
+            // Begin the transaction
+            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+            ft5.replace(R.id.tablet_second_panel, detailedTabletFragment);
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+            ft5.commit(); */
 
         widgetButton =(Button) findViewById(R.id.widget_button);
         newString = ID;
@@ -123,6 +144,23 @@ public class IngredientStepsActivity extends AppCompatActivity {
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
         ft2.commit();
+
+
+        if (descriptionTablet!= null ){
+
+            DetailTabletFragment detailTabletFragment = new DetailTabletFragment();
+
+            Bundle bundle3 = new Bundle();
+
+            Log.v("I am in the ", "IngredientStepsActivity");
+            bundle3.putString("Description", descriptionTablet);
+            bundle3.putString("URL", urlTablet);
+            detailTabletFragment.setArguments(bundle3);
+            FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
+            ft3.replace(R.id.tablet_second_panel, detailTabletFragment);
+            ft3.commit();
+        }
     }
+
 
 }
