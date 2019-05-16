@@ -102,13 +102,13 @@ public class DetailTabletFragment extends Fragment {
         super.onStart();
         if (!urlForTablet.isEmpty()){
             initializePlayer(urlForTablet);}
-        else {
+       /* else {
             playerView.setVisibility(View.GONE);
             noVideo.setVisibility(View.VISIBLE);
           //  playerView.setDefaultArtwork();
            // playerView.setUseArtwork(R.drawable.no_video);
 
-        }
+        }*/
 
     }
 

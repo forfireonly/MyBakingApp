@@ -37,6 +37,8 @@ public class IngredientStepsActivity extends AppCompatActivity {
 
     boolean tabletSize;
 
+    Integer sameOrNot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +148,7 @@ public class IngredientStepsActivity extends AppCompatActivity {
         ft2.commit();
 
 
-        if (descriptionTablet!= null ){
+        if (descriptionTablet!= null && sameOrNot== ID){
 
             DetailTabletFragment detailTabletFragment = new DetailTabletFragment();
 
@@ -159,6 +161,8 @@ public class IngredientStepsActivity extends AppCompatActivity {
             FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
             ft3.replace(R.id.tablet_second_panel, detailTabletFragment);
             ft3.commit();
+            sameOrNot = ID;
+
         }
     }
 

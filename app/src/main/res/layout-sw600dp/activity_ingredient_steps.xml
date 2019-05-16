@@ -98,9 +98,9 @@
             android:id="@+id/exoplayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:default_artwork="@drawable/no_video"
             app:use_artwork="true"
+
             />
             />
 
