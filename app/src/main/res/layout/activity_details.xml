@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:default_artwork="@drawable/no_video"
+        app:default_artwork="@drawable/video_place_holder"
         app:use_artwork="true"
         />
 
